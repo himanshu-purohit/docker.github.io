@@ -49,7 +49,7 @@ $ docker run -it --rm -d -v mysql_data:/var/lib/mysql \
 
 Okay, now that we have a running MySQL, let’s update our Dockerfile to activate the MySQL Spring profile defined in the application and switch from an in-memory H2 database to the MySQL server we just created.
 
-We only need to add the MySQL profil as an argument to the `CMD` definition.
+We only need to add the MySQL profile as an argument to the `CMD` definition.
 
 ```dockerfile
 CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql"]
@@ -130,6 +130,8 @@ This Compose file is super convenient as we do not have to type all the paramete
 We expose port 8000 and declare the debug configuration for the JVM so that we can attach a debugger.
 
 Another really cool feature of using a Compose file is that we have service resolution set up to use the service names. Therefore, we are now able to use `mysqlserver` in our connection string. The reason we use `mysqlserver` is because that is what we've named our MySQL service as in the Compose file.
+
+Also, note that we didn't have to specify the `network` like in earlier examples. This is because, by default, compose automatically sets up a single network for your app.
 
 Now, to start our application and to confirm that it is running properly.
 
